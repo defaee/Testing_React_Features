@@ -1,10 +1,17 @@
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
+import Home from "./components/home";
+import Root from "./components/root";
 
 function App() {
   return (
-    <main className="bg-black w-full h-screen flex justify-center items-center">
-      <h1 className="text-2xl text-white">Hello World!</h1>
-    </main>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home />}>
+          <Route path="/" element={<Root />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   );
 }
 
