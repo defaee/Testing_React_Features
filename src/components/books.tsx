@@ -1,4 +1,4 @@
-import { Link, Outlet } from "react-router-dom";
+import { Link, Outlet, useParams } from "react-router-dom";
 import data from "../assets/data.json";
 
 interface Book {
@@ -8,11 +8,15 @@ interface Book {
 }
 
 const Books = () => {
+  const { bookID } = useParams();
+  const ID: number | undefined = Number(bookID);
   return (
     <div className="w-[75%] flex justify-between items-center">
       <div className="w-[28%] flex flex-col py-[3rem] gap-[1rem]">
         {data.books.map((book: Book) => (
-          <Link to={`/books/${book.id}`}>{book.title}</Link>
+          <Link className={`${book.id === ID ? "text-red-500" : ""}`} to={`/books/${book.id}`}>
+            {book.title}
+          </Link>
         ))}
       </div>
       <div className="w-1 h-full bg-white"></div>
