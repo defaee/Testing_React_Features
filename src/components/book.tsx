@@ -1,5 +1,7 @@
 import { useParams } from "react-router-dom";
 import data from "../assets/data.json";
+import { useContext } from "react";
+import AppContext from "../context/context";
 
 interface BookType {
   id: number;
@@ -8,9 +10,10 @@ interface BookType {
 }
 
 const Book = () => {
+  const { books } = useContext(AppContext);
   const { bookID } = useParams();
   const ID: number = Number(bookID);
-  const book: BookType | undefined = data.books.find((book: BookType) => {
+  const book: BookType | undefined = books.find((book: BookType) => {
     return book.id === ID;
   });
 

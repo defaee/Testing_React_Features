@@ -1,34 +1,35 @@
 import { Link, Outlet, useParams, useSearchParams, useLocation } from "react-router-dom";
 import data from "../assets/data.json";
-import { useEffect, useState } from "react";
-
-interface Book {
-  id: number;
-  title: string;
-  price: number;
-}
+import { useContext, useEffect } from "react";
+import AppContext, { BookType } from "../context/context";
 
 const Books = () => {
-  const [text, setText] = useState<string>("");
+  const { bookID } = useParams();
+  const ID: number | undefined = Number(bookID);
+  const { text, setText, books, setBooks } = useContext(AppContext);
   const [serachParams, setSearchParams] = useSearchParams();
   const location = useLocation();
-  const handleSearch = ({ value }: { value: string }) => {
+  const handleSearch = ({ value }: { value: string }): false | true => {
     setText(value);
     if (!value.trim()) {
       setSearchParams({});
-      return;
+      setBooks(data.books);
+      return false;
     }
     setSearchParams({ q: value.trim() });
+    const filtredBooks: BookType[] = data.books.filter((book) => book.title.toLowerCase().includes(value.trim()));
+    setBooks(filtredBooks);
+    return true;
   };
-  const { bookID } = useParams();
-  const ID: number | undefined = Number(bookID);
 
   useEffect(() => {
-    const query = serachParams.get("q") || "";
-    handleSearch({ value: query });
+    setBooks(data.books);
+  }, []);
+
+  useEffect(() => {
+    handleSearch({ value: text });
   }, [serachParams]);
 
-  const filteredBooks = text ? data.books.filter((book: Book) => book.title.toLowerCase().includes(text.toLowerCase())) : data.books;
   return (
     <div className="w-[75%] flex justify-between items-center">
       <div className="w-[28%] flex flex-col py-[3rem] gap-[1rem]">
@@ -38,7 +39,7 @@ const Books = () => {
           value={text}
           onChange={({ target }) => handleSearch(target)}
         />
-        {filteredBooks.map((book: Book) => (
+        {books.map((book: BookType) => (
           <Link className={`${book.id === ID ? "text-red-500" : ""}`} to={`/books/${book.id}${location.search}`}>
             {book.title}
           </Link>
