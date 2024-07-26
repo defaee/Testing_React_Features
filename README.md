@@ -19,7 +19,8 @@
   - - [ ] useMemo
   - - [ ] useCallback
 - Other Features:
-  - - [ ] Context API
+
+  - - [x] Context API
   - - [ ] Code Splitting
   - - [ ] React Lazy Import
   - - [ ] Lodash

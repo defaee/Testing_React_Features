@@ -1,5 +1,4 @@
 import { useParams } from "react-router-dom";
-import data from "../assets/data.json";
 import { useContext } from "react";
 import AppContext from "../context/context";
 
