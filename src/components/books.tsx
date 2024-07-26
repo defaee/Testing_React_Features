@@ -1,4 +1,4 @@
-import { Link, Outlet, useParams, useSearchParams } from "react-router-dom";
+import { Link, Outlet, useParams, useSearchParams, useLocation } from "react-router-dom";
 import data from "../assets/data.json";
 import { useEffect, useState } from "react";
 
@@ -11,6 +11,7 @@ interface Book {
 const Books = () => {
   const [text, setText] = useState<string>("");
   const [serachParams, setSearchParams] = useSearchParams();
+  const location = useLocation();
   const handleSearch = ({ value }: { value: string }) => {
     setText(value);
     if (!value.trim()) {
@@ -38,7 +39,7 @@ const Books = () => {
           onChange={({ target }) => handleSearch(target)}
         />
         {filteredBooks.map((book: Book) => (
-          <Link className={`${book.id === ID ? "text-red-500" : ""}`} to={`/books/${book.id}`}>
+          <Link className={`${book.id === ID ? "text-red-500" : ""}`} to={`/books/${book.id}${location.search}`}>
             {book.title}
           </Link>
         ))}
