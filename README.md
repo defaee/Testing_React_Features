@@ -16,8 +16,8 @@
   - - [x] useEffect
   - - [x] useRef
   - - [ ] useReducer
-  - - [ ] useMemo
-  - - [ ] useCallback
+  - - [x] useMemo
+  - - [x] useCallback
 - Other Features:
 
   - - [x] Context API
