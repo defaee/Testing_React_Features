@@ -15,9 +15,10 @@
   - - [x] useState
   - - [x] useEffect
   - - [x] useRef
-  - - [ ] useReducer
+  - - [x] useReducer
   - - [x] useMemo
   - - [x] useCallback
+  - - [x] other hooks
 - Other Features:
 
   - - [x] Context API
