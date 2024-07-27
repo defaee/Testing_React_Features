@@ -6,6 +6,7 @@ import Books from "./components/books";
 import Book from "./components/book";
 import { useState } from "react";
 import AppContext, { BookType } from "./context/context";
+import UseRef from "./components/useRef";
 
 function App() {
   const [text, setText] = useState<string>("");
@@ -21,6 +22,7 @@ function App() {
               <Route path="/books/:bookID" element={<Book />} />
             </Route>
           </Route>
+          <Route path="ref" element={<UseRef />} />
         </Routes>
       </BrowserRouter>
     </AppContext.Provider>
