@@ -1,4 +1,4 @@
-import { useReducer } from "react";
+import { useReducer, useTransition } from "react";
 
 interface ACTIONS {
   type: "plus" | "minus";
@@ -22,9 +22,17 @@ const countReducer = (state: State, action: ACTIONS) => {
 
 const UseReducer = () => {
   const [countStore, dispatchCount] = useReducer(countReducer, { count: 0 });
+  const [isPending, startTransition] = useTransition();
 
   const handlePlus = () => {
-    dispatchCount({ type: "plus", payload: 1 });
+    startTransition(() => {
+      let num: number = 0;
+      while (num < 20000) {
+        num++;
+      }
+
+      dispatchCount({ type: "plus", payload: 1 });
+    });
   };
 
   const handleMinus = () => {
@@ -39,7 +47,7 @@ const UseReducer = () => {
         <button className="bg-blue-400 rounded-lg w-[100px] h-[40px]" onClick={handlePlus}>
           Plus
         </button>
-        <h3 className="text-white text-2xl">{countStore.count}</h3>
+        <h3 className="text-white text-2xl">{isPending ? "loading ..." : countStore.count}</h3>
         <button className="bg-blue-400 rounded-lg w-[100px] h-[40px]" onClick={handleMinus}>
           Minus
         </button>
